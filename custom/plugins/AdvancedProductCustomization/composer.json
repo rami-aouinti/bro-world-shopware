@@ -2,7 +2,7 @@
     "name": "bro-world/advanced-product-customization",
     "description": "Advanced product customization experience for Shopware storefront.",
     "type": "shopware-platform-plugin",
-    "license": "MIT",
+    "license": "proprietary",
     "autoload": {
         "psr-4": {
             "AdvancedProductCustomization\\": "src/"
