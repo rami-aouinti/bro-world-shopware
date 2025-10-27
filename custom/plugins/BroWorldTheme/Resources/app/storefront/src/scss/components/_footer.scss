@@ -1,0 +1,47 @@
+.site-footer {
+    padding: 3rem 1.5rem;
+    background: var(--color-brand-primary, #1d3557);
+    color: var(--color-contrast-primary, #ffffff);
+
+    &__grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+        margin-bottom: 2.5rem;
+    }
+
+    &__title {
+        font-family: var(--font-family-headline, 'Poppins', sans-serif);
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: color-mix(in srgb, var(--color-contrast-primary, #ffffff) 90%, transparent);
+        text-decoration: none;
+        padding: 0.25rem 0;
+        transition: color 0.25s ease;
+
+        &:hover,
+        &:focus {
+            color: var(--color-brand-tertiary, #e63946);
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: space-between;
+        padding-top: 1.5rem;
+        border-top: 1px solid color-mix(in srgb, var(--color-contrast-primary, #ffffff) 20%, transparent);
+        font-size: 0.85rem;
+    }
+}
+
+[data-theme-mode='dark'] .site-footer {
+    background: color-mix(in srgb, var(--color-brand-primary, #1d3557) 80%, #0b132b);
+}
