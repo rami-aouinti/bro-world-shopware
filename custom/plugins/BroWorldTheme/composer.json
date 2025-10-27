@@ -14,5 +14,10 @@
     "require": {
         "shopware/core": "^6.5",
         "shopware/storefront": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "BroWorldTheme\\": "src/"
+        }
     }
 }
