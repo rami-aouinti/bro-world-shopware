@@ -55,6 +55,13 @@
         },
         "tab": "typography"
       },
+      "experience-settings": {
+        "label": {
+          "en-GB": "Experience",
+          "fr-FR": "Expérience"
+        },
+        "tab": "colors"
+      },
       "logo-settings": {
         "label": {
           "en-GB": "Logos",
@@ -145,6 +152,19 @@
         "value": "app/storefront/src/assets/favicon.svg",
         "allowDelete": true,
         "block": "favicon-settings"
+      },
+      "bro-world-dark-mode": {
+        "label": {
+          "en-GB": "Enable dark mode",
+          "fr-FR": "Activer le mode sombre"
+        },
+        "type": "switch",
+        "value": false,
+        "helpText": {
+          "en-GB": "Toggle to render the theme with a dark colour palette.",
+          "fr-FR": "Activez pour afficher le thème avec une palette sombre."
+        },
+        "block": "experience-settings"
       }
     }
   }

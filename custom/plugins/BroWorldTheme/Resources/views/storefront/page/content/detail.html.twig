@@ -1,0 +1,100 @@
+{% sw_extends '@Storefront/storefront/page/content/detail.html.twig' %}
+
+{% block page_content %}
+    {% set cmsPage = page.cmsPage ?? null %}
+    <section class="bw-hero bw-hero--compact" data-cms-element="hero">
+        <div class="bw-hero__inner">
+            <div class="bw-hero__copy">
+                <p class="bw-hero__eyebrow">{{ 'bro-world.cms.eyebrow'|trans|default('Univers Bro World') }}</p>
+                <h1 class="bw-hero__title">{{ cmsPage and cmsPage.translated ? cmsPage.translated.name|default('Plongez dans notre expertise') : 'Plongez dans notre expertise' }}</h1>
+                <p class="bw-hero__subtitle">
+                    {{ cmsPage and cmsPage.translated ? cmsPage.translated.metaDescription|default('Nous orchestrons des expériences sur mesure pour révéler la singularité de votre marque.') : 'Nous orchestrons des expériences sur mesure pour révéler la singularité de votre marque.' }}
+                </p>
+                <div class="bw-hero__actions">
+                    <a class="btn btn-primary" href="#story">{{ 'bro-world.cms.primaryCta'|trans|default('Découvrir les histoires') }}</a>
+                </div>
+            </div>
+            <div class="bw-hero__media" aria-hidden="true">
+                <div class="bw-hero__media-gradient"></div>
+                {% if cmsPage and cmsPage.previewMedia %}
+                    <img src="{{ cmsPage.previewMedia.url }}" alt="" loading="lazy" />
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    {% set uspTiles = [] %}
+    {% if cmsPage and cmsPage.translated and cmsPage.translated.customFields is defined %}
+        {% set uspTiles = cmsPage.translated.customFields.bw_detail_usps|default([]) %}
+    {% endif %}
+    {% if uspTiles is empty and cmsPage and cmsPage.customFields is defined %}
+        {% set uspTiles = cmsPage.customFields.bw_detail_usps|default([]) %}
+    {% endif %}
+    {% if uspTiles is empty %}
+        {% set uspTiles = [
+            { title: 'Stratégie expérientielle', description: 'Des parcours scénarisés autour de vos temps forts.' },
+            { title: 'Design émotionnel', description: 'Des interfaces immersives au service de votre storytelling.' },
+            { title: 'Personnalisation poussée', description: 'Une segmentation intelligente pour chaque audience.' }
+        ] %}
+    {% endif %}
+    <section class="bw-usp-grid bw-usp-grid--compact" aria-labelledby="usp-grid-detail-title">
+        <div class="bw-section-intro">
+            <p class="bw-section-eyebrow">{{ 'bro-world.cms.uspEyebrow'|trans|default('Nos piliers') }}</p>
+            <h2 id="usp-grid-detail-title">{{ 'bro-world.cms.uspTitle'|trans|default('Des expériences mémorables et mesurables') }}</h2>
+        </div>
+        <div class="bw-usp-grid__items">
+            {% for usp in uspTiles %}
+                <article class="bw-usp-grid__item">
+                    <h3>{{ usp.title }}</h3>
+                    <p>{{ usp.description }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    {% set navigationSource = page.header is defined and page.header.navigation is defined ? page.header.navigation : (page.navigation ?? null) %}
+    {% set navigationRoot = navigationSource and navigationSource.tree is defined ? navigationSource.tree : navigationSource %}
+    {% set navigationChildren = navigationRoot and navigationRoot.children is defined ? navigationRoot.children : [] %}
+    {% if navigationChildren|length > 0 %}
+        <section class="bw-univers-navigation bw-univers-navigation--inline" aria-labelledby="univers-navigation-detail-title">
+            <div class="bw-section-intro">
+                <p class="bw-section-eyebrow">{{ 'bro-world.cms.universEyebrow'|trans|default('Explorer par univers') }}</p>
+                <h2 id="univers-navigation-detail-title">{{ 'bro-world.cms.universTitle'|trans|default('Sélectionnez une expérience') }}</h2>
+            </div>
+            <ul class="bw-univers-navigation__list">
+                {% for child in navigationChildren %}
+                    <li>
+                        <a href="{{ child.url ?? path('frontend.navigation.page', { navigationId: child.id }) }}" class="bw-univers-navigation__link">
+                            <span>{{ child.translated.name|default(child.name) }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+
+    {% set sections = cmsPage and cmsPage.sections is defined ? cmsPage.sections : [] %}
+    {% if sections|length > 0 %}
+        <section class="bw-storytelling bw-storytelling--detailed" id="story" aria-labelledby="storytelling-detail-title">
+            <div class="bw-section-intro">
+                <p class="bw-section-eyebrow">{{ 'bro-world.cms.storyEyebrow'|trans|default('Chapitrage narratif') }}</p>
+                <h2 id="storytelling-detail-title">{{ 'bro-world.cms.storyTitle'|trans|default('Raconter un univers produit inspirant') }}</h2>
+            </div>
+            <div class="bw-storytelling__items">
+                {% for section in sections %}
+                    {% set firstBlock = section.blocks|default([])|first %}
+                    {% set firstSlot = firstBlock and firstBlock.slots is defined ? firstBlock.slots|first : null %}
+                    {% set description = firstSlot and firstSlot.translated and firstSlot.translated.config and firstSlot.translated.config.content is defined ? firstSlot.translated.config.content : section.translated.description|default('') %}
+                    <article class="bw-storytelling__item">
+                        <h3>{{ section.translated.name|default('Séquence ' ~ loop.index) }}</h3>
+                        {% if description %}
+                            <p>{{ description|striptags }}</p>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
