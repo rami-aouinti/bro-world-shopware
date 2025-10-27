@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<snippet>
+    <snippet-files namespace="smart-inventory-alerts" base-path="Resources/snippet">
+        <snippet-file>en-GB/smart-inventory-alerts.en-GB.json</snippet-file>
+        <snippet-file>fr-FR/smart-inventory-alerts.fr-FR.json</snippet-file>
+        <snippet-file>de-DE/smart-inventory-alerts.de-DE.json</snippet-file>
+    </snippet-files>
+</snippet>

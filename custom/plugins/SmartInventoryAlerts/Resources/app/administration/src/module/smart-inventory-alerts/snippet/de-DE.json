@@ -1,0 +1,18 @@
+{
+    "smart-inventory-alerts": {
+        "general": {
+            "mainMenuItemGeneral": "Bestandswarnungen",
+            "descriptionTextModule": "Dashboard für Niedrigbestand, langsame Drehung und Prognosen",
+            "cardLowStock": "Niedriger Bestand",
+            "cardSlowRotation": "Langsame Drehung",
+            "cardForecast": "Prognosen"
+        },
+        "table": {
+            "product": "Produkt",
+            "stock": "Bestand",
+            "available": "Verfügbar",
+            "sales": "Verkäufe",
+            "daysLeft": "Tage verbleibend"
+        }
+    }
+}
