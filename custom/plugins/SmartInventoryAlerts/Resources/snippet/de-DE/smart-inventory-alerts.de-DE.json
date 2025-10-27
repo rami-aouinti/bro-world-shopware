@@ -1,0 +1,11 @@
+{
+    "smart-inventory-alerts": {
+        "form": {
+            "help": "Lassen Sie sich benachrichtigen, wenn dieses Produkt wieder auf Lager ist.",
+            "email": "Ihre E-Mail",
+            "threshold": "Schwelle",
+            "submit": "Benachrichtigen",
+            "success": "Danke! Wir informieren Sie, sobald der Bestand wieder verfügbar ist."
+        }
+    }
+}

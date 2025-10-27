@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="true" public="false" />
+
+        <service id="SmartInventoryAlerts\Core\Content\Alert\SmartInventoryAlertDefinition">
+            <tag name="shopware.entity.definition" entity="smart_inventory_alert" />
+        </service>
+
+        <service id="SmartInventoryAlerts\Service\InventoryAlertService">
+            <argument type="service" id="smart_inventory_alert.repository" />
+            <argument type="service" id="Shopware\Core\System\Mail\Service\MailService" />
+        </service>
+
+        <service id="SmartInventoryAlerts\ScheduledTask\SmartInventoryAlertsTaskHandler">
+            <argument type="service" id="messenger.bus.shopware" />
+            <argument type="service" id="smart_inventory_alert.repository" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="SmartInventoryAlerts\Service\InventoryAlertService" />
+            <tag name="shopware.scheduled.task" scheduled-task-class="SmartInventoryAlerts\ScheduledTask\SmartInventoryAlertsTask" method="run" />
+        </service>
+
+        <service id="SmartInventoryAlerts\Controller\InventoryDashboardController">
+            <tag name="controller.service_arguments" />
+            <tag name="shopware.api.route" routeScope="administration" />
+        </service>
+
+        <service id="SmartInventoryAlerts\Storefront\Controller\InventoryAlertController">
+            <tag name="controller.service_arguments" />
+            <tag name="shopware.storefront.controller" />
+        </service>
+
+        <service id="SmartInventoryAlerts\Storefront\Subscriber\ProductPageSubscriber">
+            <tag name="kernel.event_subscriber" />
+        </service>
+    </services>
+</container>

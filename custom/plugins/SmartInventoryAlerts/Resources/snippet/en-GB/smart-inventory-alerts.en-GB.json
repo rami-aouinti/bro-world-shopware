@@ -1,0 +1,11 @@
+{
+    "smart-inventory-alerts": {
+        "form": {
+            "help": "Get notified when this product is back in stock.",
+            "email": "Your email",
+            "threshold": "Threshold",
+            "submit": "Notify me",
+            "success": "Thanks! We'll notify you once the stock is available."
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{% block smart_inventory_alerts_dashboard %}
+    <sw-page class="smart-inventory-alerts-dashboard">
+        <template #smart-bar-actions>
+            <sw-button @click="loadData" :disabled="isLoading" variant="primary">
+                {{ $tc('smart-inventory-alerts.general.mainMenuItemGeneral') }}
+            </sw-button>
+        </template>
+
+        <template #content>
+            <sw-loader v-if="isLoading" />
+            <sw-container columns="repeat(3, 1fr)" gap="20px" v-else>
+                <sw-card :title="$tc('smart-inventory-alerts.general.cardLowStock')">
+                    <sw-data-grid :dataSource="lowStock" :columns="[
+                        { property: 'name', label: $tc('smart-inventory-alerts.table.product') },
+                        { property: 'stock', label: $tc('smart-inventory-alerts.table.stock') },
+                        { property: 'available_stock', label: $tc('smart-inventory-alerts.table.available') }
+                    ]" :showSettings="false" :showSelection="false" :allowInlineEdit="false" />
+                </sw-card>
+
+                <sw-card :title="$tc('smart-inventory-alerts.general.cardSlowRotation')">
+                    <sw-data-grid :dataSource="slowRotation" :columns="[
+                        { property: 'name', label: $tc('smart-inventory-alerts.table.product') },
+                        { property: 'stock', label: $tc('smart-inventory-alerts.table.stock') },
+                        { property: 'sales', label: $tc('smart-inventory-alerts.table.sales') }
+                    ]" :showSettings="false" :showSelection="false" :allowInlineEdit="false" />
+                </sw-card>
+
+                <sw-card :title="$tc('smart-inventory-alerts.general.cardForecast')">
+                    <sw-data-grid :dataSource="forecast" :columns="[
+                        { property: 'name', label: $tc('smart-inventory-alerts.table.product') },
+                        { property: 'stock', label: $tc('smart-inventory-alerts.table.stock') },
+                        { property: 'sales', label: $tc('smart-inventory-alerts.table.sales') },
+                        { property: 'days_left', label: $tc('smart-inventory-alerts.table.daysLeft') }
+                    ]" :showSettings="false" :showSelection="false" :allowInlineEdit="false" />
+                </sw-card>
+            </sw-container>
+        </template>
+    </sw-page>
+{% endblock %}

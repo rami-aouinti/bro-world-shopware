@@ -1,0 +1,18 @@
+{
+    "smart-inventory-alerts": {
+        "general": {
+            "mainMenuItemGeneral": "Alertes d'inventaire",
+            "descriptionTextModule": "Tableau de bord des stocks faibles, rotations lentes et prévisions",
+            "cardLowStock": "Stocks faibles",
+            "cardSlowRotation": "Rotation lente",
+            "cardForecast": "Prévisions"
+        },
+        "table": {
+            "product": "Produit",
+            "stock": "Stock",
+            "available": "Disponible",
+            "sales": "Ventes",
+            "daysLeft": "Jours restants"
+        }
+    }
+}

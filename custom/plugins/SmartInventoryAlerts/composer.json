@@ -1,0 +1,25 @@
+{
+    "name": "bro/smart-inventory-alerts",
+    "description": "Smart inventory alerts for Shopware storefront and administration",
+    "type": "shopware-platform-plugin",
+    "license": "proprietary",
+    "require": {
+        "shopware/core": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "SmartInventoryAlerts\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "SmartInventoryAlerts\\SmartInventoryAlerts",
+        "label": {
+            "en-GB": "Smart Inventory Alerts",
+            "fr-FR": "Alertes d'inventaire intelligentes"
+        },
+        "description": {
+            "en-GB": "Smart inventory monitoring with customer alerts and admin dashboard.",
+            "fr-FR": "Suivi intelligent de l'inventaire avec alertes clients et tableau de bord d'administration."
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{% sw_extends '@Storefront/storefront/page/product-detail/index.html.twig' %}
+
+{% block page_product_detail_buy_meta %}
+    {{ parent() }}
+    <div class="smart-inventory-alert mt-3">
+        <div class="alert alert-info">
+            {{ "smart-inventory-alerts.form.help"|trans|default("Recevez une alerte lorsque ce produit revient en stock.") }}
+        </div>
+        <form data-smart-inventory-alert-form action="{{ path('frontend.smart-inventory-alerts.register') }}" method="post">
+            {{ csrf('smart_inventory_alert_form') }}
+            <input type="hidden" name="productId" value="{{ page.product.id }}" />
+            <div class="form-row">
+                <div class="col-md-6 mb-2">
+                    <input type="email" required class="form-control" name="email" placeholder="{{ 'smart-inventory-alerts.form.email'|trans|default('Votre e-mail') }}">
+                </div>
+                <div class="col-md-3 mb-2">
+                    <input type="number" min="1" value="{{ page.extensions.smartInventoryAlert.defaultThreshold }}" class="form-control" name="threshold" placeholder="{{ 'smart-inventory-alerts.form.threshold'|trans|default('Seuil') }}">
+                </div>
+                <div class="col-md-3 mb-2">
+                    <button type="submit" class="btn btn-primary btn-block">{{ 'smart-inventory-alerts.form.submit'|trans|default('Prévenez-moi') }}</button>
+                </div>
+            </div>
+            <div class="smart-inventory-alert__feedback text-success d-none">{{ 'smart-inventory-alerts.form.success'|trans|default('Merci ! Nous vous avertirons dès que le stock sera suffisant.') }}</div>
+            <div class="smart-inventory-alert__feedback-error text-danger d-none"></div>
+        </form>
+    </div>
+{% endblock %}
