@@ -18,6 +18,7 @@ use Gally\ShopwarePlugin\Config\ConfigManager;
 use Shopware\Core\Content\Product\SalesChannel\Listing\Processor\SortingListingProcessor as BaseSortingListingProcessor;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
+use Shopware\Core\Content\Product\SalesChannel\Sorting\ProductSortingCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -54,6 +55,20 @@ class SortingListingProcessor extends BaseSortingListingProcessor
     ): void {
         if (!$this->configManager->isActive($context->getSalesChannelId())) {
             parent::process($request, $result, $context);
+
+            return;
         }
+
+        $sortings = $result->getExtension('gally-sortings');
+
+        if (!$sortings instanceof ProductSortingCollection) {
+            $sortings = $result->getExtension('sortings');
+        }
+
+        if (!$sortings instanceof ProductSortingCollection) {
+            $sortings = new ProductSortingCollection();
+        }
+
+        $result->setAvailableSortings($sortings);
     }
 }
