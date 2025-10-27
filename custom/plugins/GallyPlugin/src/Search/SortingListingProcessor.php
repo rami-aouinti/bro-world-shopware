@@ -17,6 +17,7 @@ namespace Gally\ShopwarePlugin\Search;
 use Gally\ShopwarePlugin\Config\ConfigManager;
 use Shopware\Core\Content\Product\SalesChannel\Listing\Processor\SortingListingProcessor as BaseSortingListingProcessor;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -48,12 +49,11 @@ class SortingListingProcessor extends BaseSortingListingProcessor
 
     public function process(
         Request $request,
-        Criteria $criteria,
-        SalesChannelContext $context,
-        EntitySearchResult $result
+        ProductListingResult $result,
+        SalesChannelContext $context
     ): void {
         if (!$this->configManager->isActive($context->getSalesChannelId())) {
-            parent::process($request, $criteria, $context, $result);
+            parent::process($request, $result, $context);
         }
     }
 }
