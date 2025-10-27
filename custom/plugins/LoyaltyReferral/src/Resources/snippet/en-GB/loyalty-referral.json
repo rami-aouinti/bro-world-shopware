@@ -1,0 +1,16 @@
+{
+    "loyalty-referral": {
+        "general": {
+            "mainMenuItemGeneral": "Loyalty & Referral"
+        },
+        "list": {
+            "buttonReporting": "View reporting",
+            "columnCustomer": "Customer",
+            "columnBalance": "Balance"
+        },
+        "report": {
+            "title": "Points reporting",
+            "noData": "No transactions found"
+        }
+    }
+}

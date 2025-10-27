@@ -1,0 +1,14 @@
+{
+    "name": "bro-world/loyalty-referral",
+    "description": "Loyalty and referral management plugin",
+    "type": "shopware-platform-plugin",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "~6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "LoyaltyReferral\\": "src/"
+        }
+    }
+}

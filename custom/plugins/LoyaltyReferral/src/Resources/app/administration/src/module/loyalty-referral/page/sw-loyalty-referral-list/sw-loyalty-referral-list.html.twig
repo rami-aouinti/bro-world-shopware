@@ -1,0 +1,22 @@
+{% block sw_loyalty_referral_list %}
+    <sw-page class="sw-loyalty-referral-list">
+        <template #smart-bar-actions>
+            <sw-button variant="primary" :router-link="{ name: 'sw.loyalty.referral.report' }">
+                {{ $tc('loyalty-referral.list.buttonReporting') }}
+            </sw-button>
+        </template>
+
+        <template #content>
+            <sw-entity-listing
+                :items="items"
+                :columns="[
+                    { property: 'customer.firstName', dataIndex: 'customer.firstName', label: $tc('loyalty-referral.list.columnCustomer') },
+                    { property: 'balance', dataIndex: 'balance', label: $tc('loyalty-referral.list.columnBalance') }
+                ]"
+                detail-route="sw.customer.detail"
+                :is-loading="isLoading"
+                :show-selection="false"
+            />
+        </template>
+    </sw-page>
+{% endblock %}
