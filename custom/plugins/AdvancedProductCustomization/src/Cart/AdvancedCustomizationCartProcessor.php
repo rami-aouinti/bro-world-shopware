@@ -20,7 +20,10 @@ if (!class_exists(__NAMESPACE__ . '\\CartDataCollectionCompat', false)) {
     } elseif (class_exists(\Shopware\Core\Checkout\Cart\Data\CartDataCollection::class)) {
         class_alias(\Shopware\Core\Checkout\Cart\Data\CartDataCollection::class, __NAMESPACE__ . '\\CartDataCollectionCompat');
     } else {
-        throw new \RuntimeException('Unable to locate Shopware cart data collection class');
+        /** @psalm-suppress DuplicateClass */
+        class CartDataCollectionCompat
+        {
+        }
     }
 }
 

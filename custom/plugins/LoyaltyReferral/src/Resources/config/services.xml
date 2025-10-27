@@ -5,6 +5,16 @@
 
         <service id="LoyaltyReferral\Service\PointCalculationService" />
 
+        <service id="LoyaltyReferral\Core\Content\LoyaltyBalance\LoyaltyBalanceDefinition">
+            <tag name="shopware.entity.definition" />
+        </service>
+        <service id="LoyaltyReferral\Core\Content\LoyaltyTransaction\LoyaltyTransactionDefinition">
+            <tag name="shopware.entity.definition" />
+        </service>
+        <service id="LoyaltyReferral\Core\Content\ReferralCode\ReferralCodeDefinition">
+            <tag name="shopware.entity.definition" />
+        </service>
+
         <service id="LoyaltyReferral\Service\LoyaltyBalanceService">
             <argument type="service" id="loyalty_balance.repository" />
             <argument type="service" id="loyalty_transaction.repository" />
