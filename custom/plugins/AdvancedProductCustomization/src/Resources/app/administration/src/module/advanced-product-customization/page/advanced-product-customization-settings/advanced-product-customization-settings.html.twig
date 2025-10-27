@@ -1,0 +1,47 @@
+{% block advanced_product_customization_settings %}
+    <sw-page class="advanced-product-customization-settings">
+        <template #smart-bar-header>
+            <h2>{{ $tc('advanced-product-customization.general.headline') }}</h2>
+        </template>
+
+        <template #smart-bar-actions>
+            <sw-button-process
+                :isLoading="isLoading"
+                variant="primary"
+                @click="onSave"
+                :disabled="!hasSelection"
+            >
+                {{ $tc('advanced-product-customization.general.save') }}
+            </sw-button-process>
+        </template>
+
+        <template #content>
+            <sw-card-view>
+                <sw-card :title="$tc('advanced-product-customization.general.productSelection')">
+                    <sw-entity-single-select
+                        v-model="selectedProductId"
+                        entity="product"
+                        show-clearable-button
+                        label-property="name"
+                        :placeholder="$tc('advanced-product-customization.general.selectProduct')"
+                    />
+                </sw-card>
+
+                <sw-card
+                    :isLoading="isLoading"
+                    :title="$tc('advanced-product-customization.general.optionConfiguration')"
+                    class="advanced-product-customization-settings__options"
+                    :subtitle="selectedProduct ? selectedProduct.translated?.name : ''"
+                >
+                    <advanced-product-customization-product-options
+                        :disabled="!hasSelection"
+                        :value="productOptions"
+                        @add-option="onAddOption"
+                        @remove-option="onRemoveOption"
+                        @update:value="onOptionsChange"
+                    />
+                </sw-card>
+            </sw-card-view>
+        </template>
+    </sw-page>
+{% endblock %}

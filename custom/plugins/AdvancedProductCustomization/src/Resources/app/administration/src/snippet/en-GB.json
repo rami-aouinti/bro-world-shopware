@@ -1,0 +1,26 @@
+{
+    "advanced-product-customization": {
+        "general": {
+            "mainMenuItemGeneral": "Advanced Product Customization",
+            "description": "Configure multi-step customization options for each product.",
+            "headline": "Advanced product customization",
+            "save": "Save",
+            "productSelection": "Select product",
+            "selectProduct": "Choose a product to configure",
+            "optionConfiguration": "Customization options",
+            "addOption": "Add option",
+            "optionName": "Option name",
+            "priceSurcharge": "Price surcharge",
+            "optionDescription": "Description",
+            "removeOption": "Remove",
+            "actions": "Actions"
+        },
+        "notifications": {
+            "saved": "The customization options were saved successfully."
+        },
+        "emptyState": {
+            "title": "No customization options",
+            "description": "Add customization options to tailor the configurator for this product."
+        }
+    }
+}
