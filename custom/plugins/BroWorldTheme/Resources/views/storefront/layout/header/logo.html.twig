@@ -1,0 +1,10 @@
+{% sw_extends '@Storefront/storefront/layout/header/logo.html.twig' %}
+
+{% block layout_header_logo_image %}
+    {% set themeLogo = theme_config('sw-logo-desktop') %}
+    {% if themeLogo %}
+        <img src="{{ themeLogo }}" alt="{{ shopware.config.core.basicInformation.shopName }}" class="header-logo-main"/>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

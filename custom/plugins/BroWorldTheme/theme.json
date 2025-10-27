@@ -1,0 +1,151 @@
+{
+  "name": "BroWorldTheme",
+  "label": {
+    "en-GB": "Bro World Theme",
+    "fr-FR": "Thème Bro World"
+  },
+  "author": "Bro World",
+  "views": [
+    "@Storefront",
+    "@Plugins",
+    "Resources/views"
+  ],
+  "style": [
+    "app/storefront/src/scss/base.scss"
+  ],
+  "script": [
+    "app/storefront/src/main.js"
+  ],
+  "asset": [
+    "app/storefront/src/assets"
+  ],
+  "config": {
+    "tabs": {
+      "colors": {
+        "label": {
+          "en-GB": "Colours",
+          "fr-FR": "Couleurs"
+        }
+      },
+      "typography": {
+        "label": {
+          "en-GB": "Typography",
+          "fr-FR": "Typographie"
+        }
+      },
+      "media": {
+        "label": {
+          "en-GB": "Media",
+          "fr-FR": "Médias"
+        }
+      }
+    },
+    "blocks": {
+      "brand-colors": {
+        "label": {
+          "en-GB": "Brand colours",
+          "fr-FR": "Couleurs de la marque"
+        },
+        "tab": "colors"
+      },
+      "font-settings": {
+        "label": {
+          "en-GB": "Fonts",
+          "fr-FR": "Polices"
+        },
+        "tab": "typography"
+      },
+      "logo-settings": {
+        "label": {
+          "en-GB": "Logos",
+          "fr-FR": "Logos"
+        },
+        "tab": "media"
+      },
+      "favicon-settings": {
+        "label": {
+          "en-GB": "Favicon",
+          "fr-FR": "Favicon"
+        },
+        "tab": "media"
+      }
+    },
+    "fields": {
+      "sw-color-brand-primary": {
+        "label": {
+          "en-GB": "Primary brand colour",
+          "fr-FR": "Couleur principale"
+        },
+        "type": "colorpicker",
+        "value": "#1d3557",
+        "block": "brand-colors"
+      },
+      "sw-color-brand-secondary": {
+        "label": {
+          "en-GB": "Secondary brand colour",
+          "fr-FR": "Couleur secondaire"
+        },
+        "type": "colorpicker",
+        "value": "#457b9d",
+        "block": "brand-colors"
+      },
+      "sw-color-brand-tertiary": {
+        "label": {
+          "en-GB": "Accent colour",
+          "fr-FR": "Couleur d'accent"
+        },
+        "type": "colorpicker",
+        "value": "#e63946",
+        "block": "brand-colors"
+      },
+      "sw-font-family-base": {
+        "label": {
+          "en-GB": "Base font family",
+          "fr-FR": "Police de base"
+        },
+        "type": "text",
+        "value": "'Inter', 'Helvetica Neue', Arial, sans-serif",
+        "block": "font-settings"
+      },
+      "sw-font-family-headline": {
+        "label": {
+          "en-GB": "Headline font family",
+          "fr-FR": "Police des titres"
+        },
+        "type": "text",
+        "value": "'Poppins', 'Helvetica Neue', Arial, sans-serif",
+        "block": "font-settings"
+      },
+      "sw-logo-desktop": {
+        "label": {
+          "en-GB": "Desktop logo",
+          "fr-FR": "Logo bureau"
+        },
+        "type": "media",
+        "value": "app/storefront/src/assets/logo.svg",
+        "allowDelete": true,
+        "block": "logo-settings"
+      },
+      "sw-logo-desktop-negative": {
+        "label": {
+          "en-GB": "Desktop logo (negative)",
+          "fr-FR": "Logo bureau (négatif)"
+        },
+        "type": "media",
+        "value": "app/storefront/src/assets/logo-dark.svg",
+        "allowDelete": true,
+        "block": "logo-settings"
+      },
+      "sw-logo-favicon": {
+        "label": {
+          "en-GB": "Favicon",
+          "fr-FR": "Favicon"
+        },
+        "type": "media",
+        "value": "app/storefront/src/assets/favicon.svg",
+        "allowDelete": true,
+        "block": "favicon-settings"
+      }
+    }
+  }
+}

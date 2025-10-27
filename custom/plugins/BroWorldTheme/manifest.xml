@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/Framework/Plugin/schema/manifest-2.0.xsd">
+    <meta>
+        <name>BroWorldTheme</name>
+        <label>Bro World Theme</label>
+        <description>Custom storefront theme for Bro World.</description>
+        <author>Bro World</author>
+        <copyright>Bro World</copyright>
+        <version>1.0.0</version>
+        <license>MIT</license>
+    </meta>
+    <type>theme</type>
+    <compatibility min-version="6.5.0.0"/>
+    <resources>
+        <storefront>
+            <path>Resources/app/storefront/dist/storefront</path>
+            <scss>Resources/app/storefront/src/scss/base.scss</scss>
+            <js>Resources/app/storefront/src/main.js</js>
+            <views>Resources/views</views>
+        </storefront>
+    </resources>
+</manifest>
