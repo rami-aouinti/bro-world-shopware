@@ -16,7 +16,7 @@ use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 class ExpirePointsTaskHandler extends ScheduledTaskHandler
 {
     public function __construct(
-        private readonly EntityRepository $scheduledTaskRepository,
+        EntityRepository $scheduledTaskRepository,
         private readonly EntityRepository $transactionRepository,
         private readonly EntityRepository $balanceRepository,
         private readonly LoyaltyBalanceService $balanceService
