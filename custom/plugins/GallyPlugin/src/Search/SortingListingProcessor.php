@@ -18,6 +18,7 @@ use Gally\ShopwarePlugin\Config\ConfigManager;
 use Shopware\Core\Content\Product\SalesChannel\Listing\Processor\SortingListingProcessor as BaseSortingListingProcessor;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,5 +44,16 @@ class SortingListingProcessor extends BaseSortingListingProcessor
 
         // For gally sort criteria is managed in
         // @see \Gally\ShopwarePlugin\Search\CriteriaBuilder::handleSorting
+    }
+
+    public function process(
+        Request $request,
+        Criteria $criteria,
+        SalesChannelContext $context,
+        EntitySearchResult $result
+    ): void {
+        if (!$this->configManager->isActive($context->getSalesChannelId())) {
+            parent::process($request, $criteria, $context, $result);
+        }
     }
 }
