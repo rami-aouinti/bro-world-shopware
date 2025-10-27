@@ -1,0 +1,77 @@
+{% set customizationData = product.customFields.advanced_product_customization_options ?? [] %}
+{% set steps = customizationData|length > 0 ? customizationData : [
+    {
+        id: 'engraving',
+        title: 'Engraving',
+        description: 'Choose your engraving style',
+        options: [
+            { id: 'engraving-script', label: 'Script engraving', price: 10, description: 'Elegant cursive style.' },
+            { id: 'engraving-block', label: 'Block engraving', price: 5, description: 'Modern sans serif characters.' }
+        ]
+    },
+    {
+        id: 'packaging',
+        title: 'Gift packaging',
+        description: 'Select a packaging option',
+        options: [
+            { id: 'gift-basic', label: 'Basic wrapping', price: 3, description: 'Simple tissue wrap.' },
+            { id: 'gift-premium', label: 'Premium box', price: 12, description: 'Rigid gift box with ribbon.' }
+        ]
+    }
+] %}
+
+{% if steps|length > 0 %}
+    <div class="product-detail-customization" data-advanced-product-customization>
+        <div class="product-detail-customization__header">
+            <h3 class="product-detail-customization__title">{{ 'advanced-product-customization.storefront.title'|trans|default('Personalise your product') }}</h3>
+            <span data-customization-progress></span>
+        </div>
+
+        <input type="hidden" name="lineItems[0][payload][advancedProductCustomization]" value="" data-customization-input />
+
+        {% for step in steps %}
+            <div class="product-detail-customization__steps" data-customization-step data-step-id="{{ step.id }}">
+                <h4>{{ step.title }}</h4>
+                {% if step.description %}
+                    <p>{{ step.description }}</p>
+                {% endif %}
+
+                <div class="product-detail-customization__options">
+                    {% for option in step.options %}
+                        <div class="product-detail-customization__option">
+                            <div>
+                                <strong>{{ option.label }}</strong>
+                                {% if option.description %}
+                                    <p>{{ option.description }}</p>
+                                {% endif %}
+                            </div>
+                            <div>
+                                {% if option.price %}
+                                    <span class="product-detail-customization__price">+ {{ option.price|number_format(2, '.', ' ') }} {{ context.currency.symbol }}</span>
+                                {% endif %}
+                                <button
+                                    class="btn btn-sm btn-outline-primary"
+                                    data-customization-option='{{ option|json_encode }}'
+                                    type="button"
+                                >
+                                    {{ 'advanced-product-customization.storefront.select'|trans|default('Select') }}
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="product-detail-customization__actions">
+                    {% if not loop.first %}
+                        <button class="btn btn-light" data-customization-previous type="button">{{ 'advanced-product-customization.storefront.previous'|trans|default('Previous') }}</button>
+                    {% endif %}
+                    {% if not loop.last %}
+                        <button class="btn btn-primary" data-customization-next type="button">{{ 'advanced-product-customization.storefront.next'|trans|default('Next') }}</button>
+                    {% else %}
+                        <button class="btn btn-primary" data-customization-next type="button">{{ 'advanced-product-customization.storefront.finish'|trans|default('Finish configuration') }}</button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

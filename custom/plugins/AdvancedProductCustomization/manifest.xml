@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/Resources/schemas/manifest-1.0.xsd">
+    <meta>
+        <name>AdvancedProductCustomization</name>
+        <label>Advanced Product Customization</label>
+        <description>Enable advanced multi-step product customization with price overrides.</description>
+        <author>Bro World</author>
+        <copyright>Bro World</copyright>
+        <version>1.0.0</version>
+        <compatibility minVersion="6.5.0.0" />
+    </meta>
+    <administration>
+        <entryPoint>Resources/app/administration/src/main.js</entryPoint>
+    </administration>
+    <storefront>
+        <entryPoint>Resources/app/storefront/src/main.js</entryPoint>
+    </storefront>
+</manifest>

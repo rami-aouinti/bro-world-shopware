@@ -1,0 +1,11 @@
+{
+    "advanced-product-customization": {
+        "storefront": {
+            "title": "Customise your product",
+            "select": "Select",
+            "next": "Next",
+            "previous": "Previous",
+            "finish": "Finish configuration"
+        }
+    }
+}
