@@ -8,19 +8,23 @@ use JsonException;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\CartBehavior;
 use Shopware\Core\Checkout\Cart\CartProcessorInterface;
-use Shopware\Core\Checkout\Cart\CartDataCollection;
+use Shopware\Core\Checkout\Cart\Data\CartDataCollection as CoreCartDataCollection;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedTaxCollection;
 use Shopware\Core\Checkout\Cart\Price\Struct\TaxRuleCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
+if (!class_exists(CoreCartDataCollection::class) && class_exists(\Shopware\Core\Checkout\Cart\CartDataCollection::class)) {
+    class_alias(\Shopware\Core\Checkout\Cart\CartDataCollection::class, CoreCartDataCollection::class);
+}
+
 class AdvancedCustomizationCartProcessor implements CartProcessorInterface
 {
     public const PAYLOAD_KEY = 'advancedProductCustomization';
 
     public function process(
-        CartDataCollection $data,
+        CoreCartDataCollection $data,
         Cart $original,
         Cart $calculated,
         SalesChannelContext $context,
