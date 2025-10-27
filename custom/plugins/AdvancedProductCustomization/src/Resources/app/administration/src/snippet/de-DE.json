@@ -1,0 +1,26 @@
+{
+    "advanced-product-customization": {
+        "general": {
+            "mainMenuItemGeneral": "Erweiterte Produktkonfiguration",
+            "description": "Mehrstufige Konfigurationsoptionen pro Produkt verwalten.",
+            "headline": "Erweiterte Produktpersonalisierung",
+            "save": "Speichern",
+            "productSelection": "Produkt auswählen",
+            "selectProduct": "Bitte ein Produkt wählen",
+            "optionConfiguration": "Konfigurationsoptionen",
+            "addOption": "Option hinzufügen",
+            "optionName": "Optionsname",
+            "priceSurcharge": "Preisaufschlag",
+            "optionDescription": "Beschreibung",
+            "removeOption": "Entfernen",
+            "actions": "Aktionen"
+        },
+        "notifications": {
+            "saved": "Die Optionen wurden erfolgreich gespeichert."
+        },
+        "emptyState": {
+            "title": "Keine Optionen vorhanden",
+            "description": "Fügen Sie Optionen hinzu, um den Konfigurator für dieses Produkt zu definieren."
+        }
+    }
+}

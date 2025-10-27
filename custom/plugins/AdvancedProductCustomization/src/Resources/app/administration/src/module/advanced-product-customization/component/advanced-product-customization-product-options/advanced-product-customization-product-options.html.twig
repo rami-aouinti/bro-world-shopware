@@ -1,0 +1,80 @@
+<div class="advanced-product-customization-product-options">
+    <sw-button
+        variant="ghost"
+        size="small"
+        :disabled="disabled"
+        @click="addOption"
+    >
+        {{ $tc('advanced-product-customization.general.addOption') }}
+    </sw-button>
+
+    <sw-data-grid
+        v-if="options.length"
+        :dataSource="options"
+        :showSelection="false"
+        :isLoading="false"
+        class="advanced-product-customization-product-options__grid"
+    >
+        <template #column-name="{ item }">
+            <sw-text-field
+                v-model="item.name"
+                :disabled="disabled"
+                :placeholder="$tc('advanced-product-customization.general.optionName')"
+                @update:value="$emit('update:value', options)"
+            />
+        </template>
+        <template #column-price="{ item }">
+            <sw-number-field
+                v-model="item.price"
+                :disabled="disabled"
+                numberType="float"
+                :placeholder="$tc('advanced-product-customization.general.priceSurcharge')"
+                @update:value="$emit('update:value', options)"
+            />
+        </template>
+        <template #column-description="{ item }">
+            <sw-text-field
+                v-model="item.description"
+                :disabled="disabled"
+                :placeholder="$tc('advanced-product-customization.general.optionDescription')"
+                @update:value="$emit('update:value', options)"
+            />
+        </template>
+        <template #actions="{ item }">
+            <sw-context-menu-item
+                @click="removeOption(item)"
+                icon="regular-trash"
+            >
+                {{ $tc('advanced-product-customization.general.removeOption') }}
+            </sw-context-menu-item>
+        </template>
+
+        <sw-data-grid-column
+            label="advanced-product-customization.general.optionName"
+            property="name"
+            inline-edit
+        />
+        <sw-data-grid-column
+            label="advanced-product-customization.general.priceSurcharge"
+            property="price"
+            align="right"
+            inline-edit
+        />
+        <sw-data-grid-column
+            label="advanced-product-customization.general.optionDescription"
+            property="description"
+            inline-edit
+        />
+        <sw-data-grid-column
+            label="advanced-product-customization.general.actions"
+            property="actions"
+            width="120"
+        />
+    </sw-data-grid>
+
+    <sw-empty-state
+        v-else
+        :title="$tc('advanced-product-customization.emptyState.title')"
+        :description="$tc('advanced-product-customization.emptyState.description')"
+    />
+</div>
