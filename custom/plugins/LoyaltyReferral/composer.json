@@ -3,6 +3,12 @@
     "description": "Loyalty and referral management plugin",
     "type": "shopware-platform-plugin",
     "license": "MIT",
+    "extra": {
+        "shopware-plugin-class": "LoyaltyReferral\\LoyaltyReferral",
+        "label": {
+            "en-GB": "Loyalty Referral"
+        }
+    },
     "require": {
         "shopware/core": "^6.5"
     },
