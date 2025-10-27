@@ -1,0 +1,35 @@
+{% sw_extends '@Storefront/storefront/page/account/index.html.twig' %}
+
+{% block page_account_content_inner %}
+    {{ parent() }}
+
+    {% block loyalty_referral_account_summary %}
+        <div class="loyalty-referral-account card">
+            <div class="card-body">
+                <h3 class="card-title">{{ 'loyalty-referral.storefront.balance.title'|trans }}</h3>
+                <p class="lead">{{ page.extensions.loyaltyReferral.balance ?? 0 }}</p>
+
+                <h4>{{ 'loyalty-referral.storefront.referral.title'|trans }}</h4>
+                <p class="small">{{ 'loyalty-referral.storefront.referral.description'|trans }}</p>
+                <div class="input-group mb-3">
+                    <input id="loyalty-referral-link" type="text" class="form-control" readonly value="{{ page.extensions.loyaltyReferral.referralUrl ?? '' }}" />
+                    <button class="btn btn-outline-secondary" type="button" data-copy-target="#loyalty-referral-link">
+                        {{ 'loyalty-referral.storefront.referral.copy'|trans }}
+                    </button>
+                </div>
+
+                <h4>{{ 'loyalty-referral.storefront.transactions.title'|trans }}</h4>
+                <ul class="list-group">
+                    {% for transaction in page.extensions.loyaltyReferral.transactions %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>{{ transaction.description ?? transaction.type }}</span>
+                            <span class="badge bg-{{ transaction.amount > 0 ? 'success' : 'danger' }}">{{ transaction.amount }}</span>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item text-muted">{{ 'loyalty-referral.storefront.transactions.empty'|trans }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

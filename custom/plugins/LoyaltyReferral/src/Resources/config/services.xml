@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults autowire="true" autoconfigure="true" public="false" />
+
+        <service id="LoyaltyReferral\Service\PointCalculationService" />
+
+        <service id="LoyaltyReferral\Service\LoyaltyBalanceService">
+            <argument type="service" id="loyalty_balance.repository" />
+            <argument type="service" id="loyalty_transaction.repository" />
+        </service>
+
+        <service id="LoyaltyReferral\Service\ReferralCodeService">
+            <argument type="service" id="referral_code.repository" />
+        </service>
+
+        <service id="LoyaltyReferral\ScheduledTask\CreditPointsTaskHandler" public="true">
+            <argument type="service" id="shopware.scheduled_task.repository" />
+            <argument type="service" id="order.repository" />
+            <argument type="service" id="LoyaltyReferral\Service\LoyaltyBalanceService" />
+            <argument type="service" id="LoyaltyReferral\Service\PointCalculationService" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="LoyaltyReferral\ScheduledTask\ExpirePointsTaskHandler" public="true">
+            <argument type="service" id="shopware.scheduled_task.repository" />
+            <argument type="service" id="loyalty_transaction.repository" />
+            <argument type="service" id="loyalty_balance.repository" />
+            <argument type="service" id="LoyaltyReferral\Service\LoyaltyBalanceService" />
+            <tag name="messenger.message_handler" />
+        </service>
+
+        <service id="LoyaltyReferral\Subscriber\AccountPageSubscriber" public="false">
+            <argument type="service" id="loyalty_transaction.repository" />
+            <argument type="service" id="LoyaltyReferral\Service\LoyaltyBalanceService" />
+            <argument type="service" id="LoyaltyReferral\Service\ReferralCodeService" />
+            <argument type="service" id="router" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+    </services>
+</container>

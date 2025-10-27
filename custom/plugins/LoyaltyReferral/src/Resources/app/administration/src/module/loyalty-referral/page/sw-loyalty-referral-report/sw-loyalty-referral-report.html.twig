@@ -1,0 +1,32 @@
+{% block sw_loyalty_referral_report %}
+    <sw-page class="sw-loyalty-referral-report" :is-loading="isLoading">
+        <template #smart-bar-back>
+            <sw-button variant="ghost" :router-link="{ name: 'sw.loyalty.referral.index' }">
+                {{ $tc('sw-settings.detail.buttonCancel') }}
+            </sw-button>
+        </template>
+
+        <template #content>
+            <sw-card-view>
+                <sw-card :title="$tc('loyalty-referral.report.title')">
+                    <sw-empty-state
+                        v-if="!transactions.length && !isLoading"
+                        :title="$tc('loyalty-referral.report.noData')"
+                        icon="regular-chart-line"
+                    />
+
+                    <sw-data-grid
+                        v-else
+                        :data-source="transactions"
+                        :columns="[
+                            { property: 'balance.customer.firstName', label: $tc('loyalty-referral.list.columnCustomer') },
+                            { property: 'amount', label: 'Δ' },
+                            { property: 'type', label: 'Type' },
+                            { property: 'createdAt', label: 'Created' }
+                        ]"
+                    />
+                </sw-card>
+            </sw-card-view>
+        </template>
+    </sw-page>
+{% endblock %}

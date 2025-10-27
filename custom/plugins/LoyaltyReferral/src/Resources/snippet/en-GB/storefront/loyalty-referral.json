@@ -1,0 +1,18 @@
+{
+    "loyalty-referral": {
+        "storefront": {
+            "balance": {
+                "title": "Your loyalty points"
+            },
+            "referral": {
+                "title": "Invite friends",
+                "description": "Share your referral link to earn bonus points when friends make their first purchase.",
+                "copy": "Copy link"
+            },
+            "transactions": {
+                "title": "Recent loyalty activity",
+                "empty": "You do not have any loyalty activity yet."
+            }
+        }
+    }
+}
