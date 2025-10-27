@@ -24,34 +24,65 @@
     <div class="product-detail-customization" data-advanced-product-customization>
         <div class="product-detail-customization__header">
             <h3 class="product-detail-customization__title">{{ 'advanced-product-customization.storefront.title'|trans|default('Personalise your product') }}</h3>
-            <span data-customization-progress></span>
+            <span class="product-detail-customization__current-step" data-customization-progress aria-live="polite"></span>
         </div>
+
+        <nav class="product-detail-customization__step-navigation" aria-label="{{ 'advanced-product-customization.storefront.title'|trans|default('Personalise your product') }}">
+            <ol class="product-detail-customization__step-list">
+                {% for step in steps %}
+                    <li class="product-detail-customization__step-item">
+                        <button
+                            class="product-detail-customization__step-trigger"
+                            data-customization-step-trigger
+                            data-step-id="{{ step.id }}"
+                            data-step-index="{{ loop.index0 }}"
+                            type="button"
+                        >
+                            <span class="product-detail-customization__step-badge" aria-hidden="true">{{ loop.index }}</span>
+                            <span class="product-detail-customization__step-label">{{ step.title }}</span>
+                        </button>
+                    </li>
+                {% endfor %}
+            </ol>
+        </nav>
 
         <input type="hidden" name="lineItems[0][payload][advancedProductCustomization]" value="" data-customization-input />
 
         {% for step in steps %}
-            <div class="product-detail-customization__steps" data-customization-step data-step-id="{{ step.id }}">
-                <h4>{{ step.title }}</h4>
-                {% if step.description %}
-                    <p>{{ step.description }}</p>
-                {% endif %}
+            <div
+                class="product-detail-customization__step"
+                data-customization-step
+                data-step-id="{{ step.id }}"
+                data-step-index="{{ loop.index0 }}"
+                data-step-title="{{ step.title }}"
+            >
+                <div class="product-detail-customization__step-header">
+                    <span class="product-detail-customization__step-badge" aria-hidden="true">{{ loop.index }}</span>
+                    <div class="product-detail-customization__step-header-text">
+                        <h4 class="product-detail-customization__step-title">{{ step.title }}</h4>
+                        {% if step.description %}
+                            <p class="product-detail-customization__step-description">{{ step.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
 
                 <div class="product-detail-customization__options">
                     {% for option in step.options %}
                         <div class="product-detail-customization__option">
-                            <div>
-                                <strong>{{ option.label }}</strong>
+                            <div class="product-detail-customization__option-content">
+                                <strong class="product-detail-customization__option-title">{{ option.label }}</strong>
                                 {% if option.description %}
-                                    <p>{{ option.description }}</p>
+                                    <p class="product-detail-customization__option-description">{{ option.description }}</p>
                                 {% endif %}
                             </div>
-                            <div>
+                            <div class="product-detail-customization__option-actions">
                                 {% if option.price %}
                                     <span class="product-detail-customization__price">+ {{ option.price|number_format(2, '.', ' ') }} {{ context.currency.symbol }}</span>
                                 {% endif %}
                                 <button
-                                    class="btn btn-sm btn-outline-primary"
+                                    class="btn btn-sm btn-outline-primary product-detail-customization__option-button"
                                     data-customization-option='{{ option|json_encode }}'
+                                    data-step-id="{{ step.id }}"
                                     type="button"
                                 >
                                     {{ 'advanced-product-customization.storefront.select'|trans|default('Select') }}
