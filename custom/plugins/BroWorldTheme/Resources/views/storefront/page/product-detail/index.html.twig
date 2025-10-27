@@ -1,0 +1,96 @@
+{% sw_extends '@AdvancedProductCustomization/storefront/page/product-detail/index.html.twig' %}
+
+{% block page_product_detail_content %}
+    {% set product = page.product %}
+    <section class="bw-product-hero" data-product-id="{{ product.id }}">
+        <div class="bw-product-hero__media" aria-hidden="true">
+            {% if product.cover and product.cover.media %}
+                {% set media = product.cover.media %}
+                {% set thumbnail = media.thumbnails|default([])|first %}
+                <img src="{{ thumbnail ? thumbnail.url : media.url }}" alt="{{ media.translated.alt|default(product.translated.name) }}" loading="lazy" />
+            {% endif %}
+        </div>
+        <div class="bw-product-hero__copy">
+            <p class="bw-product-hero__eyebrow">{{ 'bro-world.product.eyebrow'|trans|default('Bro World Lab') }}</p>
+            <h1 class="bw-product-hero__title">{{ product.translated.name }}</h1>
+            {% if product.translated.manufacturer %}
+                <p class="bw-product-hero__subtitle">{{ product.translated.manufacturer.name }}</p>
+            {% endif %}
+            {% set mainPrice = product.calculatedPrices|length > 0 ? (product.calculatedPrices|first).unitPrice : product.calculatedPrice.unitPrice %}
+            <p class="bw-product-hero__price">{{ mainPrice|currency }}</p>
+            <div class="bw-product-hero__actions">
+                <a class="btn btn-primary" href="#product-customization">{{ 'bro-world.product.primaryCta'|trans|default('Lancer la personnalisation') }}</a>
+                <a class="btn btn-outline-primary" href="#product-story">{{ 'bro-world.product.secondaryCta'|trans|default("Découvrir l'histoire") }}</a>
+            </div>
+        </div>
+    </section>
+
+    {% set uspTiles = [] %}
+    {% if product.translated.customFields is defined %}
+        {% set uspTiles = product.translated.customFields.bw_product_usps|default([]) %}
+    {% endif %}
+    {% if uspTiles is empty and product.customFields is defined %}
+        {% set uspTiles = product.customFields.bw_product_usps|default([]) %}
+    {% endif %}
+    {% if uspTiles is empty %}
+        {% set uspTiles = [
+            { title: 'Matériaux responsables', description: 'Approvisionnements certifiés et traçabilité complète.' },
+            { title: 'Technologie intelligente', description: 'Capteurs connectés et analytics intégrés.' },
+            { title: 'Personnalisation experte', description: 'Modules interchangeables et finitions sur-mesure.' }
+        ] %}
+    {% endif %}
+    <section class="bw-product-usp-grid" aria-labelledby="product-usp-grid-title">
+        <div class="bw-section-intro">
+            <p class="bw-section-eyebrow">{{ 'bro-world.product.uspEyebrow'|trans|default('Les plus de ce produit') }}</p>
+            <h2 id="product-usp-grid-title">{{ 'bro-world.product.uspTitle'|trans|default('Une proposition de valeur unique') }}</h2>
+        </div>
+        <div class="bw-usp-grid__items">
+            {% for usp in uspTiles %}
+                <article class="bw-usp-grid__item">
+                    <h3>{{ usp.title }}</h3>
+                    <p>{{ usp.description }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    {{ parent() }}
+
+    {% set storytelling = [] %}
+    {% if product.translated.customFields is defined %}
+        {% set storytelling = product.translated.customFields.bw_product_story|default([]) %}
+    {% endif %}
+    {% if storytelling is empty and product.translated.description %}
+        {% set storytelling = [{
+            title: 'Design et intention',
+            description: product.translated.description|striptags
+        }] %}
+    {% endif %}
+    {% if storytelling is not iterable %}
+        {% set storytelling = [storytelling] %}
+    {% endif %}
+    {% if storytelling|length > 0 %}
+        <section class="bw-storytelling bw-storytelling--product" id="product-story" aria-labelledby="product-story-title">
+            <div class="bw-section-intro">
+                <p class="bw-section-eyebrow">{{ 'bro-world.product.storyEyebrow'|trans|default("L'histoire derrière le produit") }}</p>
+                <h2 id="product-story-title">{{ 'bro-world.product.storyTitle'|trans|default('Conçu pour créer des expériences mémorables') }}</h2>
+            </div>
+            <div class="bw-storytelling__items">
+                {% for chapter in storytelling %}
+                    <article class="bw-storytelling__item">
+                        <h3>{{ chapter.title|default('Chapitre ' ~ loop.index) }}</h3>
+                        {% if chapter.description %}
+                            <p>{{ chapter.description }}</p>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block page_product_detail_buy_container_inner %}
+    <div class="bw-product-detail__purchase" id="product-customization">
+        {{ parent() }}
+    </div>
+{% endblock %}
