@@ -167,5 +167,6 @@
         "block": "experience-settings"
       }
     }
-  }
+  },
+  "version": 3
 }
