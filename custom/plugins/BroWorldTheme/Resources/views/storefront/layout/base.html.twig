@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/layout/base.html.twig' %}
+
+{% block base_body_attributes %}
+    {% set themeMode = theme_config('bro-world-dark-mode') ? 'dark' : 'light' %}
+    {{ parent() }} data-theme="{{ themeMode }}"
+{% endblock %}
+
+{% block base_body_inner %}
+    {% set baseBodyContent %}
+        {{ parent() }}
+    {% endset %}
+
+    <div class="bw-global-grid">
+        <main class="bw-global-grid__main">
+            {{ baseBodyContent|raw }}
+        </main>
+        <aside class="bw-global-grid__cta" aria-label="{{ 'bro-world.cta.title'|trans|default('Accès rapide') }}">
+            {% block bw_global_cta %}
+                <div class="bw-global-grid__cta-card">
+                    <p class="bw-global-grid__cta-eyebrow">{{ 'bro-world.cta.eyebrow'|trans|default('Conseil expert') }}</p>
+                    <h2 class="bw-global-grid__cta-title">{{ 'bro-world.cta.title'|trans|default('Prêt à transformer votre projet ?') }}</h2>
+                    <p class="bw-global-grid__cta-text">{{ 'bro-world.cta.subtitle'|trans|default('Contactez notre équipe pour un accompagnement sur-mesure.') }}</p>
+                    <a class="btn btn-primary btn-block" href="{{ path('frontend.home.page') }}#product-customization">
+                        {{ 'bro-world.cta.button'|trans|default('Parler à un expert') }}
+                    </a>
+                </div>
+            {% endblock %}
+        </aside>
+    </div>
+{% endblock %}

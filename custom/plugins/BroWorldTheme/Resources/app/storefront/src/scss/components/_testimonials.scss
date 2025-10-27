@@ -1,0 +1,84 @@
+.testimonials {
+    position: relative;
+    padding: 3rem 1.5rem;
+    background: radial-gradient(circle at top, color-mix(in srgb, var(--color-brand-secondary, #457b9d) 65%, transparent) 0%,
+            transparent 60%);
+
+    &__slider {
+        display: flex;
+        gap: 1.5rem;
+        overflow: hidden;
+    }
+
+    &__card {
+        flex: 0 0 100%;
+        max-width: 28rem;
+        margin: 0 auto;
+        padding: 2rem;
+        border-radius: var(--border-radius-lg, 1.25rem);
+        background: var(--color-surface-card, #ffffff);
+        color: var(--color-brand-primary, #1d3557);
+        box-shadow: 0 1rem 2rem rgba(69, 123, 157, 0.15);
+        transition: transform 0.35s ease, opacity 0.35s ease;
+
+        &.is-active {
+            transform: translateY(-10px);
+        }
+    }
+
+    &__rating {
+        display: inline-flex;
+        gap: 0.35rem;
+        color: var(--color-brand-tertiary, #e63946);
+    }
+
+    &__author {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+        font-weight: 600;
+    }
+
+    &__avatar {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--color-brand-secondary, #457b9d);
+    }
+
+    &__controls {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    &__control {
+        inline-size: 2.75rem;
+        block-size: 2.75rem;
+        border-radius: 50%;
+        border: none;
+        background: var(--color-brand-secondary, #457b9d);
+        color: var(--color-contrast-primary, #ffffff);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+
+        &:hover,
+        &:focus {
+            background: var(--color-brand-primary, #1d3557);
+            transform: translateY(-2px);
+        }
+    }
+}
+
+[data-theme-mode='dark'] .testimonials {
+    &__card {
+        background: color-mix(in srgb, var(--color-brand-primary, #1d3557) 70%, #0b132b);
+        color: var(--color-contrast-light, #f1faee);
+        box-shadow: 0 1.5rem 2.5rem rgba(0, 0, 0, 0.45);
+    }
+}
