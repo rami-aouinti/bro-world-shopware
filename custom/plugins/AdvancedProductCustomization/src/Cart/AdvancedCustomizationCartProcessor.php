@@ -8,15 +8,23 @@ use JsonException;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\CartBehavior;
 use Shopware\Core\Checkout\Cart\CartProcessorInterface;
-use Shopware\Core\Checkout\Cart\Data\CartDataCollection as CoreCartDataCollection;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedTaxCollection;
 use Shopware\Core\Checkout\Cart\Price\Struct\TaxRuleCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
-if (!class_exists(CoreCartDataCollection::class, false) && class_exists(\Shopware\Core\Checkout\Cart\CartDataCollection::class)) {
-    class_alias(\Shopware\Core\Checkout\Cart\CartDataCollection::class, 'Shopware\\Core\\Checkout\\Cart\\Data\\CartDataCollection');
+if (!class_exists(__NAMESPACE__ . '\\CartDataCollectionCompat', false)) {
+    if (class_exists(\Shopware\Core\Checkout\Cart\CartDataCollection::class)) {
+        class_alias(\Shopware\Core\Checkout\Cart\CartDataCollection::class, __NAMESPACE__ . '\\CartDataCollectionCompat');
+    } elseif (class_exists(\Shopware\Core\Checkout\Cart\Data\CartDataCollection::class)) {
+        class_alias(\Shopware\Core\Checkout\Cart\Data\CartDataCollection::class, __NAMESPACE__ . '\\CartDataCollectionCompat');
+    } else {
+        /** @psalm-suppress DuplicateClass */
+        class CartDataCollectionCompat
+        {
+        }
+    }
 }
 
 class AdvancedCustomizationCartProcessor implements CartProcessorInterface
@@ -24,7 +32,7 @@ class AdvancedCustomizationCartProcessor implements CartProcessorInterface
     public const PAYLOAD_KEY = 'advancedProductCustomization';
 
     public function process(
-        CoreCartDataCollection $data,
+        CartDataCollectionCompat $data,
         Cart $original,
         Cart $calculated,
         SalesChannelContext $context,
