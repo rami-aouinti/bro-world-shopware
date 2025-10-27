@@ -16,7 +16,7 @@ use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 class CreditPointsTaskHandler extends ScheduledTaskHandler
 {
     public function __construct(
-        private EntityRepository $scheduledTaskRepository,
+        EntityRepository $scheduledTaskRepository,
         private readonly EntityRepository $orderRepository,
         private readonly LoyaltyBalanceService $balanceService,
         private readonly PointCalculationService $pointCalculationService
