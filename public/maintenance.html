@@ -5,127 +5,482 @@
     <title>Wartungsmodus</title>
 
     <style>
-        article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em;margin:.67em 0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}mark{background:#ff0;color:#000}code,kbd,pre,samp{font:1em monospace,serif}pre{white-space:pre-wrap}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
 
-        body, html { min-height: 100%; background: #e9ebed; }
-        .maintenance-container {
+        :root {
+            color-scheme: light dark;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+            transition: background 0.6s ease, color 0.6s ease;
+            background: var(--background-gradient);
+            color: var(--text-primary);
+        }
+
+        body[data-theme="light"] {
+            --background-gradient: linear-gradient(160deg, #e2e8f0, #c7d2fe 55%, #93c5fd);
+            --card-background: rgba(255, 255, 255, 0.92);
+            --card-border: rgba(148, 163, 184, 0.35);
+            --card-shadow: 0 24px 60px rgba(148, 163, 184, 0.35);
+            --card-overlay-primary: rgba(37, 99, 235, 0.18);
+            --card-overlay-secondary: rgba(14, 165, 233, 0.2);
+            --accent: #2563eb;
+            --accent-soft: rgba(37, 99, 235, 0.12);
+            --accent-strong: #1d4ed8;
+            --text-primary: #0f172a;
+            --text-secondary: #1e293b;
+            --text-muted: rgba(15, 23, 42, 0.7);
+            --info-background: rgba(148, 163, 184, 0.12);
+            --info-icon-background: rgba(37, 99, 235, 0.15);
+            --footer-text: rgba(15, 23, 42, 0.6);
+            --link-color: #1d4ed8;
+            --ring-color: rgba(37, 99, 235, 0.35);
+            --toggle-background: rgba(148, 163, 184, 0.2);
+            --accent-glow-ring: rgba(37, 99, 235, 0.1);
+            --accent-glow-focus: rgba(56, 189, 248, 0.6);
+        }
+
+        body[data-theme="dark"] {
+            --background-gradient: linear-gradient(145deg, #0f172a, #1e293b 55%, #2563eb);
+            --card-background: rgba(15, 23, 42, 0.82);
+            --card-border: rgba(148, 163, 184, 0.25);
+            --card-shadow: 0 24px 60px rgba(8, 47, 73, 0.5);
+            --card-overlay-primary: rgba(56, 189, 248, 0.18);
+            --card-overlay-secondary: rgba(37, 99, 235, 0.22);
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.14);
+            --accent-strong: #38bdf8;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5f5;
+            --text-muted: rgba(226, 232, 240, 0.75);
+            --info-background: rgba(148, 163, 184, 0.14);
+            --info-icon-background: rgba(56, 189, 248, 0.16);
+            --footer-text: rgba(203, 213, 225, 0.65);
+            --link-color: #93c5fd;
+            --ring-color: rgba(148, 163, 184, 0.45);
+            --toggle-background: rgba(15, 23, 42, 0.6);
+            --accent-glow-ring: rgba(56, 189, 248, 0.12);
+            --accent-glow-focus: rgba(56, 189, 248, 0.75);
+        }
+
+        .maintenance-card {
             position: relative;
-            background: #fff;
-            -webkit-border-radius: 3px;
-            -moz-border-radius: 3px;
-            border-radius: 3px;
-            margin: 50px auto;
-            width: 475px;
-            padding: 30px;
+            width: min(620px, 100%);
+            background: var(--card-background);
+            border-radius: 24px;
+            padding: 48px clamp(24px, 5vw, 48px);
+            box-shadow: var(--card-shadow);
             text-align: center;
+            backdrop-filter: blur(12px);
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            transition: background 0.6s ease, box-shadow 0.6s ease, border-color 0.6s ease;
+        }
 
-            -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, .5);
-            -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, .5);
-            -ms-box-shadow: 0px 1px 3px rgba(0, 0, 0, .5);
-            box-shadow: 0px 1px 3px rgba(0, 0, 0, .5);
-        }
-        .maintenance-headline {
-            font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-            font-weight: 300;
-            margin: 0 0 .8em;
-        }
-        .maintenance-text { font-size: 13px }
-        .maintenance-progress {
-            border-top: 1px solid #529e52;
-            height: 4px; width: 100%;
+        .maintenance-card::before {
+            content: "";
             position: absolute;
-            bottom: 0; left: 0;
-            background-color: #5eb95e;
-            -webkit-background-size: 40px 40px;
-            -moz-background-size: 40px 40px;
-            -o-background-size: 40px 40px;
-            background-size: 40px 40px;
-            -webkit-animation: progress-bar-stripes 2s linear infinite;
-            -moz-animation: progress-bar-stripes 2s linear infinite;
-            -ms-animation: progress-bar-stripes 2s linear infinite;
-            -o-animation: progress-bar-stripes 2s linear infinite;
-            animation: progress-bar-stripes 2s linear infinite;
-            background-color: #62C462;
-            background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
-            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-            background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-            background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-            background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+            inset: 0;
+            background: radial-gradient(circle at top left, var(--card-overlay-primary), transparent 55%),
+                        radial-gradient(circle at bottom right, var(--card-overlay-secondary), transparent 50%);
+            pointer-events: none;
         }
 
-        hr {
-            background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAHUlEQVR42q3IoREAAACCQHdy/91IFrLcfSGqc5wAdFYCZQo/LFUAAAAASUVORK5CYII=") repeat-x;
-            border: 0 none;
-            color: #CCC;
-            height: 4px;
-            padding: 0;
-            margin: 30px 0;
+        .maintenance-card > * {
+            position: relative;
+            z-index: 1;
         }
 
+        .theme-toggle {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            background: var(--toggle-background);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+        }
 
-        @-webkit-keyframes progress-bar-stripes {
-            from {
-                background-position: 40px 0;
+        .theme-toggle:hover,
+        .theme-toggle:focus-visible {
+            border-color: var(--ring-color);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .theme-toggle__icon {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        body[data-theme="light"] .theme-toggle__icon--sun {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        body[data-theme="light"] .theme-toggle__icon--moon {
+            opacity: 0;
+            transform: rotate(-30deg) scale(0.75);
+        }
+
+        body[data-theme="dark"] .theme-toggle__icon--sun {
+            opacity: 0;
+            transform: rotate(30deg) scale(0.75);
+        }
+
+        body[data-theme="dark"] .theme-toggle__icon--moon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        .logo-circle {
+            width: 96px;
+            height: 96px;
+            margin: 12px auto 24px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--accent), #14b8a6);
+            color: #f8fafc;
+            box-shadow: 0 16px 30px rgba(37, 99, 235, 0.28);
+            transition: background 0.6s ease, box-shadow 0.6s ease;
+        }
+
+        body[data-theme="dark"] .logo-circle {
+            box-shadow: 0 16px 34px rgba(15, 118, 110, 0.35);
+        }
+
+        .logo-circle svg {
+            width: 46px;
+            height: 46px;
+        }
+
+        .title {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.25rem);
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+
+        .message {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin: 0 auto 32px;
+            max-width: 46ch;
+            color: var(--text-muted);
+        }
+
+        .status-banner {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent-strong);
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent), var(--accent-strong) 75%);
+            box-shadow: 0 0 0 6px var(--accent-glow-ring), 0 0 12px var(--accent-glow-focus);
+            animation: pulse 2.4s infinite;
+        }
+
+        .progress-wrapper {
+            margin: 0 auto 32px;
+            max-width: 360px;
+            text-align: left;
+        }
+
+        .progress-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            position: relative;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.25);
+            overflow: hidden;
+        }
+
+        body[data-theme="dark"] .progress-bar {
+            background: rgba(148, 163, 184, 0.2);
+        }
+
+        .progress-bar span {
+            display: block;
+            width: 62%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+            animation: progress 2.4s ease-in-out infinite;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 18px;
+            margin-top: 36px;
+        }
+
+        .info-grid__item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            text-align: left;
+            padding: 16px 18px;
+            border-radius: 16px;
+            background: var(--info-background);
+            color: var(--text-primary);
+            transition: background 0.6s ease;
+        }
+
+        .info-grid__icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: var(--info-icon-background);
+            color: var(--accent-strong);
+        }
+
+        .info-grid__item strong {
+            display: block;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .maintenance-card a {
+            color: var(--link-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .maintenance-card a:hover,
+        .maintenance-card a:focus-visible {
+            color: var(--accent-strong);
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: var(--footer-text);
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
             }
-            to {
-                background-position: 0 0;
+            50% {
+                transform: scale(1.35);
+                opacity: 0.45;
             }
         }
 
-        @-moz-keyframes progress-bar-stripes {
-            from {
-                background-position: 40px 0;
+        @keyframes progress {
+            0% {
+                width: 20%;
             }
-            to {
-                background-position: 0 0;
+            50% {
+                width: 70%;
             }
-        }
-
-        @-ms-keyframes progress-bar-stripes {
-            from {
-                background-position: 40px 0;
-            }
-            to {
-                background-position: 0 0;
+            100% {
+                width: 62%;
             }
         }
 
-        @-o-keyframes progress-bar-stripes {
-            from {
-                background-position: 0 0;
+        @media (max-width: 520px) {
+            .maintenance-card {
+                padding: 36px 24px;
+                border-radius: 20px;
             }
-            to {
-                background-position: 40px 0;
-            }
-        }
 
-        @keyframes progress-bar-stripes {
-            from {
-                background-position: 40px 0;
+            .info-grid {
+                gap: 14px;
             }
-            to {
-                background-position: 0 0;
+
+            .info-grid__item {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
-<body>
-<div class="maintenance-container">
-    <h1 class="maintenance-headline">Unsere Website befindet sich gerade in der Wartung.</h1>
+<body data-theme="light">
+<div class="maintenance-card">
+    <button class="theme-toggle" type="button" aria-label="Designmodus umschalten">
+        <span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 2V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M12 20V22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M4 12H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M22 12H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M5.63672 5.63672L4.22251 4.22251" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.3643 18.3643L16.9501 16.95" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M5.63672 18.3643L4.22251 19.7785" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18.3643 5.63672L16.9501 7.05093" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+        </span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.046 14.03C19.373 14.22 18.667 14.323 17.938 14.323C13.705 14.323 10.267 10.885 10.267 6.651C10.267 5.922 10.37 5.216 10.56 4.543C8.045 5.247 6.144 7.537 6.144 10.255C6.144 14.488 9.582 17.926 13.815 17.926C16.533 17.926 18.823 16.025 19.527 13.51C19.7 13.89 19.876 14.178 20.046 14.03Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+    </button>
+    <div class="logo-circle" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+            <path d="M12 3L3 7.5L12 12L21 7.5L12 3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 12L12 16.5L21 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 16.5L12 21L21 16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
 
-    <p class="maintenance-text">
-        Wir stehen Ihnen bald wieder zur Verfügung. Entschuldigen Sie etwaige Unannehmlichkeiten.
+    <div class="status-banner">
+        <span class="status-dot" aria-hidden="true"></span>
+        Wartungsmodus aktiviert
+    </div>
+
+    <h1 class="title">Unsere Website bekommt gerade ein frisches Update</h1>
+    <p class="subtitle">Wir sind gleich wieder für Sie da – versprochen!</p>
+
+    <p class="message">
+        Unser Team arbeitet daran, Ihr Einkaufserlebnis noch besser zu machen. Während wir die letzten Feinschliffe vornehmen, können Sie uns jederzeit erreichen, falls Sie Unterstützung benötigen.
     </p>
 
-    <hr />
+    <div class="progress-wrapper" aria-label="Aktueller Fortschritt">
+        <div class="progress-label">
+            <span>Geplanter Abschluss</span>
+            <strong>62&nbsp;%</strong>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
+            <span></span>
+        </div>
+    </div>
 
-    <h1 class="maintenance-headline">Our website is currently undergoing maintenance.</h1>
+    <div class="info-grid">
+        <div class="info-grid__item">
+            <div class="info-grid__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 21V19C18 17.9391 17.5786 16.9217 16.8284 16.1716C16.0783 15.4214 15.0609 15 14 15H10C8.93913 15 7.92172 15.4214 7.17157 16.1716C6.42143 16.9217 6 17.9391 6 19V21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 11C13.6569 11 15 9.65685 15 8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8C9 9.65685 10.3431 11 12 11Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div>
+                <strong>Persönlicher Support</strong>
+                <span>Schreiben Sie uns unter <a href="mailto:hello@bro-world.shop">hello@bro-world.shop</a> – wir melden uns umgehend.</span>
+            </div>
+        </div>
 
-    <p class="maintenance-text">
-        We'll be back very soon. Sorry for any inconvenience.
-    </p>
+        <div class="info-grid__item">
+            <div class="info-grid__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22C16.9706 22 21 17.9706 21 13C21 8.02944 16.9706 4 12 4C7.02944 4 3 8.02944 3 13C3 15.4853 4.01088 17.7353 5.63587 19.3641C7.26085 20.9929 9.51308 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8V13L15 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div>
+                <strong>Bleiben Sie informiert</strong>
+                <span>Folgen Sie unseren Updates auf <a href="https://www.instagram.com" target="_blank" rel="noreferrer noopener">Instagram</a> und <a href="https://www.facebook.com" target="_blank" rel="noreferrer noopener">Facebook</a>.</span>
+            </div>
+        </div>
+    </div>
 
-    <div class="maintenance-progress"></div>
+    <footer>
+        &copy; <span id="year"></span> Bro World. Alle Rechte vorbehalten.
+    </footer>
 </div>
+
+<script>
+    const STORAGE_KEY = "maintenance-theme";
+    const bodyElement = document.body;
+    const toggleButton = document.querySelector(".theme-toggle");
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const applyTheme = (theme) => {
+        const nextTheme = theme === "dark" ? "dark" : "light";
+        bodyElement.dataset.theme = nextTheme;
+    };
+
+    const storedTheme = localStorage.getItem(STORAGE_KEY);
+
+    if (storedTheme) {
+        applyTheme(storedTheme);
+    } else {
+        applyTheme(mediaQuery.matches ? "dark" : "light");
+    }
+
+    toggleButton?.addEventListener("click", () => {
+        const currentTheme = bodyElement.dataset.theme === "dark" ? "dark" : "light";
+        const nextTheme = currentTheme === "dark" ? "light" : "dark";
+        applyTheme(nextTheme);
+        localStorage.setItem(STORAGE_KEY, nextTheme);
+    });
+
+    const handleSchemeChange = (event) => {
+        if (!localStorage.getItem(STORAGE_KEY)) {
+            applyTheme(event.matches ? "dark" : "light");
+        }
+    };
+
+    if (typeof mediaQuery.addEventListener === "function") {
+        mediaQuery.addEventListener("change", handleSchemeChange);
+    } else if (typeof mediaQuery.addListener === "function") {
+        mediaQuery.addListener(handleSchemeChange);
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
