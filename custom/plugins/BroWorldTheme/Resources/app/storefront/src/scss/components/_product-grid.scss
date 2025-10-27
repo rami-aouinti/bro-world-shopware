@@ -1,0 +1,86 @@
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1.75rem;
+
+    &__item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1.25rem;
+        border-radius: var(--border-radius-lg, 1.25rem);
+        background: var(--color-surface-card, #ffffff);
+        box-shadow: 0 1.5rem 3rem rgba(29, 53, 87, 0.08);
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+
+        &:hover,
+        &:focus-within {
+            transform: translateY(-6px);
+            box-shadow: 0 2.5rem 3.5rem rgba(29, 53, 87, 0.16);
+        }
+    }
+
+    &__badge {
+        position: absolute;
+        inset-block-start: 1.25rem;
+        inset-inline-start: 1.25rem;
+        padding: 0.35rem 0.75rem;
+        border-radius: var(--border-radius-pill, 999px);
+        background: var(--color-brand-tertiary, #e63946);
+        color: var(--color-contrast-dark, #0b132b);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    &__media {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        border-radius: var(--border-radius-md, 1rem);
+        object-fit: cover;
+        background: color-mix(in srgb, var(--color-brand-secondary, #457b9d) 10%, #f1f5f9);
+    }
+
+    &__title {
+        font-family: var(--font-family-headline, 'Poppins', sans-serif);
+        font-size: 1.1rem;
+        color: var(--color-brand-primary, #1d3557);
+    }
+
+    &__price {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--color-brand-tertiary, #e63946);
+    }
+
+    &__cta {
+        margin-top: auto;
+        align-self: flex-start;
+        padding: 0.65rem 1.25rem;
+        border-radius: var(--border-radius-md, 999px);
+        background: var(--color-brand-secondary, #457b9d);
+        color: var(--color-contrast-primary, #ffffff);
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.25s ease, transform 0.25s ease;
+
+        &:hover,
+        &:focus {
+            background: var(--color-brand-primary, #1d3557);
+            transform: translateY(-2px);
+        }
+    }
+}
+
+[data-theme-mode='dark'] .product-grid {
+    &__item {
+        background: color-mix(in srgb, var(--color-brand-primary, #1d3557) 65%, #0b132b);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+    }
+
+    &__title {
+        color: var(--color-contrast-light, #f1faee);
+    }
+}

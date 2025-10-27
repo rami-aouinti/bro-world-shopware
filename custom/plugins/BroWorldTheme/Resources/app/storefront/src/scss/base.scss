@@ -3,6 +3,42 @@
 
 @import "~Shopware/Storefront/Resources/app/storefront/src/scss/base";
 
+@import "components/hero";
+@import "components/usp";
+@import "components/universe-navigation";
+@import "components/product-grid";
+@import "components/testimonials";
+@import "components/footer";
+
 :root {
-    // Example custom property override, actual values configured through theme.json variables.
+    font-family: var(--font-family-base, 'Inter', sans-serif);
+    color: var(--color-brand-primary, #1d3557);
+    background-color: var(--color-page-background, #f5f7fb);
+}
+
+body {
+    font-family: inherit;
+    color: inherit;
+    background-color: inherit;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme-mode='dark'] {
+    color: var(--color-contrast-light, #f1faee);
+    background-color: color-mix(in srgb, var(--color-brand-primary, #1d3557) 65%, #0b132b);
+}
+
+[data-theme-mode='dark'] body {
+    background-color: inherit;
+}
+
+[data-animate] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
