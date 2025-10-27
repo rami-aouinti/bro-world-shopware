@@ -1,0 +1,8 @@
+parameters:
+    level: 5
+    paths:
+        - src
+    ignoreErrors:
+        -
+            message: '#Class [a-zA-Z0-9\\_]+ extends @final class [a-zA-Z0-9\\_]+\.#'
+            path: src/Search/Aggregation/AggregationOption.php

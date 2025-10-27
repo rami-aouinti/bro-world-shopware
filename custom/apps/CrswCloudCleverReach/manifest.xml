@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/Framework/App/Manifest/Schema/manifest-1.0.xsd">
+    <meta>
+        <name>CrswCloudCleverReach</name>
+        <label>CleverReach®</label>
+        <label lang="de-DE">CleverReach®</label>
+        <!-- Translatable, a description of your app -->
+        <description>CleverReach - Email Marketing for Shopware 6 Cloud</description>
+        <description lang="de-DE">CleverReach - E-Mail Marketing für Shopware 6 Cloud</description>
+        <author>CleverReach Gmbh</author>
+        <copyright>CleverReach GMBH(c)</copyright>
+        <version>1.1.3</version>
+        <icon>Resources/config/plugin.png</icon>
+        <license>MIT</license>
+        <!-- Optional, in this element you can link to your privacy policy -->
+        <privacy>https://www.cleverreach.com/en/privacy-policy/</privacy>
+        <!-- Optional, Translatable, in this element you can describe the changes the shop owner needs to apply to his shops privacy policy, e.g. because you process personal information on an external server -->
+        <privacyPolicyExtensions>https://www.cleverreach.com/en/privacy-policy/</privacyPolicyExtensions>
+        <privacyPolicyExtensions lang="de-DE">https://www.cleverreach.com/de/datenschutz/</privacyPolicyExtensions>
+    </meta>
+    <!-- Optional, can be omitted if no communication between Shopware and your app is needed -->
+    <setup>
+        <!-- The URL which will be used for the registration -->
+        <registrationUrl>https://shopware6.cleverreach.com/oauth/register</registrationUrl>
+    </setup>
+    <!-- Optional, can be omitted if your shop does not need permissions -->
+    <permissions>
+        <!-- request each permission your app needs -->
+        <read>token</read>
+        <update>token</update>
+        <read>product</read>
+        <read>product_media</read>
+        <read>property_group_option</read>
+        <read>property_group</read>
+        <read>product_manufacturer</read>
+        <read>product_translation</read>
+        <read>category</read>
+        <read>language</read>
+        <read>order</read>
+        <read>order_customer</read>
+        <read>order_address</read>
+        <read>order_line_item</read>
+        <read>order_line_customer</read>
+        <read>currency</read>
+        <read>customer</read>
+        <read>customer_address</read>
+        <read>country</read>
+        <read>country_state</read>
+        <read>customer_tag</read>
+        <read>customer_group</read>
+        <read>custom_field</read>
+        <read>custom_field_set</read>
+        <read>custom_field_set_relation</read>
+        <read>salutation</read>
+        <read>sales_channel</read>
+        <read>sales_channel_domain</read>
+        <read>tag</read>
+        <read>newsletter_recipient</read>
+        <create>newsletter_recipient</create>
+        <update>newsletter_recipient</update>
+        <read>newsletter_recipient_tag</read>
+        <read>swag_language_pack_language</read>
+        <read>seo_url</read>
+        <read>media</read>
+        <read>media_folder</read>
+        <read>media_folder_configuration</read>
+    </permissions>
+    <!-- Optional -->
+    <webhooks>
+        <webhook name="app-deleted" url="https://shopware6.cleverreach.com/webhooks/handle" event="app.deleted"/>
+        <webhook name="checkout-customer-register" url="https://shopware6.cleverreach.com/webhooks/handle" event="checkout.customer.register"/>
+        <webhook name="customer-written" url="https://shopware6.cleverreach.com/webhooks/handle" event="customer.written"/>
+        <webhook name="customer-deleted" url="https://shopware6.cleverreach.com/webhooks/handle" event="customer.deleted"/>
+        <webhook name="customer_address-written" url="https://shopware6.cleverreach.com/webhooks/handle" event="customer_address.written"/>
+        <webhook name="checkout-order-placed" url="https://shopware6.cleverreach.com/webhooks/handle" event="checkout.order.placed"/>
+        <webhook name="newsletter-confirm" url="https://shopware6.cleverreach.com/webhooks/handle" event="newsletter.confirm"/>
+        <webhook name="newsletter-register" url="https://shopware6.cleverreach.com/webhooks/handle" event="newsletter.register"/>
+        <webhook name="newsletter-update" url="https://shopware6.cleverreach.com/webhooks/handle" event="newsletter.update"/>
+        <webhook name="newsletter-unsubscribe" url="https://shopware6.cleverreach.com/webhooks/handle" event="newsletter.unsubscribe"/>
+        <webhook name="newsletter-written" url="https://shopware6.cleverreach.com/webhooks/handle" event="newsletter.written"/>
+        <webhook name="newsletter-delete" url="https://shopware6.cleverreach.com/webhooks/handle" event="newsletter.deleted"/>
+        <webhook name="sales_channel-written" url="https://shopware6.cleverreach.com/webhooks/handle" event="sales_channel.written"/>
+        <webhook name="product-loaded" url="https://shopware6.cleverreach.com/webhooks/handle" event="product.loaded"/>
+    </webhooks>
+    <!-- Optional, can be omitted if the administration should not be extended -->
+    <admin>
+        <!-- Register a custom module that is used as a parent menu entry for other modules -->
+        <module name="CleverReachModule"
+                parent="sw-marketing"
+                source="https://shopware6.cleverreach.com/module/marketing/index"
+                position="50"
+        >
+            <label>E-Mail Marketing</label>
+            <label lang="de-DE">E-Mail Marketing</label>
+        </module>
+        <!-- Register a module that is opened from the app store and your list of installed apps -->
+        <main-module source="https://shopware6.cleverreach.com/module/marketing/index"/>
+    </admin>
+</manifest>
