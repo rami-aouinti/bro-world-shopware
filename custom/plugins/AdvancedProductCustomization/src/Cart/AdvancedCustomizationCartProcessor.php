@@ -15,8 +15,8 @@ use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedTaxCollection;
 use Shopware\Core\Checkout\Cart\Price\Struct\TaxRuleCollection;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
-if (!class_exists(CoreCartDataCollection::class) && class_exists(\Shopware\Core\Checkout\Cart\CartDataCollection::class)) {
-    class_alias(\Shopware\Core\Checkout\Cart\CartDataCollection::class, CoreCartDataCollection::class);
+if (!class_exists(CoreCartDataCollection::class, false) && class_exists(\Shopware\Core\Checkout\Cart\CartDataCollection::class)) {
+    class_alias(\Shopware\Core\Checkout\Cart\CartDataCollection::class, 'Shopware\\Core\\Checkout\\Cart\\Data\\CartDataCollection');
 }
 
 class AdvancedCustomizationCartProcessor implements CartProcessorInterface
